@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import PrivateRoute from '../component/private-route/private-route';
 import Home from '../views/home/home';
+import Ride from '../views/ride/ride';
 import Login from '../views/login/login';
 import AppBar from '../component/AppBar';
 import { loadAndUpdateRides } from '../api';
@@ -73,6 +74,24 @@ export default class App extends React.Component {
               userLoaded={this.state.userLoaded}
               user={this.state.user}
               component={RequestRide}
+            />
+            <PrivateRoute
+              path="/ride/:id"
+              userLoaded={this.state.userLoaded}
+              user={this.state.user}
+              render={props => {
+                const ride = this.state.rides.find(
+                  ride => ride.id === props.computedMatch.params.id
+                );
+                return (
+                  <Ride
+                    {...props}
+                    loading={!this.state.userLoaded || !this.state.ridesLoaded}
+                    ride={ride}
+                    rides={this.state.rides}
+                  />
+                );
+              }}
             />
           </Switch>
         </div>
