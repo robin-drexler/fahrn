@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { AppBar, Card, Toolbar, Typography } from 'material-ui';
 
-class App extends React.Component {
-  render() {
+export default class HomeView extends React.Component {
+  public render() {
+    const { displayName } = window.firebase.auth().currentUser;
     return (
       <div className="App">
         <AppBar position="static" color="default">
@@ -13,13 +14,9 @@ class App extends React.Component {
           </Toolbar>
         </AppBar>
         <Card>
-          <Typography>
-            To get started, edit <code>src/App.tsx</code> and save to reload.
-          </Typography>
+          <Typography>Welcome back, {displayName}!</Typography>
         </Card>
       </div>
     );
   }
 }
-
-export default App;

@@ -12,6 +12,7 @@ interface Firestore {
 
 interface Firebase {
   firestore(): Firestore;
+  auth(): any;
 }
 
 interface Window {
