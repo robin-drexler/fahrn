@@ -25,8 +25,8 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
       const payload = {
         notification: {
           title: 'Your ride was accepted!',
-          body: 'Please check back.'
-        }
+          body: 'Please check back.',
+        },
       };
 
       return admin
@@ -42,4 +42,15 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
         });
     })
     .catch(() => {});
+});
+
+exports.storeUserMeta = functions.auth.user().onCreate(evnt => {
+  const user = evnt.data;
+  const email = user.email;
+  const uid = user.uid;
+  const display_name = user.displayName;
+  return admin
+    .firestore()
+    .collection('users')
+    .add({ email, uid, display_name });
 });
