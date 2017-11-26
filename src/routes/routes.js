@@ -11,7 +11,7 @@ export default class App extends React.Component {
     user: null,
     userLoaded: false,
     rides: [],
-    ridesLoaded: false,
+    ridesLoaded: false
   };
 
   componentDidMount() {
@@ -56,6 +56,7 @@ export default class App extends React.Component {
               user={this.state.user}
               render={() => (
                 <Home
+                  user={this.state.user}
                   rides={this.state.rides}
                   ridesLoaded={this.state.ridesLoaded}
                 />

@@ -8,12 +8,36 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-  withStyles,
+  withStyles
 } from 'material-ui';
 import { Check } from 'material-ui-icons';
 import styles from '../../styles';
 
 class HomeView extends React.Component {
+  refreshNotificationToken = () => {
+    window.firebase.messaging().getToken().then(currentToken => {
+      if (currentToken) {
+        window.firebase
+          .firestore()
+          .collection('users')
+          .doc(this.props.user.uid)
+          .set({ [currentToken]: true });
+      } else {
+        this.requestPermission();
+      }
+    });
+  };
+  requestPermission = () => {
+    window.firebase
+      .messaging()
+      .requestPermission()
+      .then(this.refreshNotificationToken.bind(this));
+  };
+
+  componentDidMount() {
+    this.refreshNotificationToken();
+  }
+
   render() {
     if (!this.props.ridesLoaded) {
       return (
