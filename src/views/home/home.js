@@ -17,20 +17,17 @@ import styles from '../../styles';
 
 class HomeView extends React.Component {
   refreshNotificationToken = () => {
-    window.firebase
-      .messaging()
-      .getToken()
-      .then(currentToken => {
-        if (currentToken) {
-          window.firebase
-            .firestore()
-            .collection('users')
-            .doc(this.props.user.uid)
-            .update({ [currentToken]: true });
-        } else {
-          this.requestPermission();
-        }
-      });
+    window.firebase.messaging().getToken().then(currentToken => {
+      if (currentToken) {
+        window.firebase
+          .firestore()
+          .collection('users')
+          .doc(this.props.user.uid)
+          .update({ notificationTokens: { [currentToken]: true } });
+      } else {
+        this.requestPermission();
+      }
+    });
   };
   requestPermission = () => {
     window.firebase
