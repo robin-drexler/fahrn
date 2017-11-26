@@ -8,10 +8,7 @@ admin.initializeApp(functions.config().firebase);
 exports.helloWorld = functions.https.onRequest((req, res) => {
   console.log();
 
-  const docRef = admin
-    .firestore()
-    .collection('users')
-    .doc('Yx4CwklT9hQICwgIZFtMFm6n4mI2');
+  const docRef = admin.firestore().collection('users').doc(req.params.id);
 
   docRef
     .get()
