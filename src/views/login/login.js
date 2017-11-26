@@ -1,8 +1,17 @@
 import * as React from 'react';
-import { Button, CircularProgress } from 'material-ui';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CircularProgress,
+  Typography,
+  withStyles,
+} from 'material-ui';
 import { Redirect } from 'react-router-dom';
+import styles from '../../styles';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   login = () => {
     const provider = new window.firebase.auth.GoogleAuthProvider();
 
@@ -19,7 +28,13 @@ export default class Login extends React.Component {
 
   render() {
     if (this.props.loading) {
-      return <CircularProgress />;
+      return (
+        <Card className={this.props.classes.root}>
+          <CardContent>
+            <CircularProgress className={this.props.classes.loading} />
+          </CardContent>
+        </Card>
+      );
     }
 
     if (this.props.user) {
@@ -27,9 +42,18 @@ export default class Login extends React.Component {
     }
 
     return (
-      <Button raised color="primary" onClick={this.login}>
-        Login
-      </Button>
+      <Card className={this.props.classes.root}>
+        <CardContent>
+          <Typography>You need to be logged in to use Fahrn</Typography>
+        </CardContent>
+        <CardActions>
+          <Button raised color="primary" onClick={this.login}>
+            Login
+          </Button>
+        </CardActions>
+      </Card>
     );
   }
 }
+
+export default withStyles(styles)(Login);

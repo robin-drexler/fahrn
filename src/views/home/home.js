@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   Card,
+  CardContent,
   CircularProgress,
   IconButton,
   List,
@@ -10,24 +11,29 @@ import {
   withStyles,
 } from 'material-ui';
 import { Check } from 'material-ui-icons';
+import styles from '../../styles';
 
 class HomeView extends React.Component {
   render() {
     if (!this.props.ridesLoaded) {
       return (
         <Card className={this.props.classes.root}>
-          <CircularProgress className={this.props.classes.loading} />
+          <CardContent>
+            <CircularProgress className={this.props.classes.loading} />
+          </CardContent>
         </Card>
       );
     }
 
     return (
       <Card className={this.props.classes.root}>
-        <List>
-          {this.props.rides.map(ride => (
-            <RideListItem key={ride.id} ride={ride} />
-          ))}
-        </List>
+        <CardContent>
+          <List>
+            {this.props.rides.map(ride => (
+              <RideListItem key={ride.id} ride={ride} />
+            ))}
+          </List>
+        </CardContent>
       </Card>
     );
   }
@@ -62,15 +68,4 @@ class RideListItem extends React.Component {
   }
 }
 
-const homeViewStyles = {
-  root: {
-    maxWidth: '960px',
-    margin: '8px auto',
-    textAlign: 'center',
-  },
-  loading: {
-    margin: '16px',
-  },
-};
-
-export default withStyles(homeViewStyles)(HomeView);
+export default withStyles(styles)(HomeView);
