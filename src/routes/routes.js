@@ -1,17 +1,19 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import PrivateRoute from '../component/private-route/private-route';
 import Home from '../views/home/home';
 import Login from '../views/login/login';
 import AppBar from '../component/AppBar';
 import { loadAndUpdateRides } from '../api';
+import RequestRide from '../views/request-ride/request-ride';
 
 export default class App extends React.Component {
+  removeListener = null;
   state = {
     user: null,
     userLoaded: false,
     rides: [],
-    ridesLoaded: false
+    ridesLoaded: false,
   };
 
   componentDidMount() {
@@ -19,7 +21,7 @@ export default class App extends React.Component {
       this.setUser(window.firebase.auth().currentUser);
     }
 
-    window.firebase.auth().onAuthStateChanged(user => {
+    this.removeListener = window.firebase.auth().onAuthStateChanged(user => {
       this.setUser(user);
     });
 
@@ -29,6 +31,9 @@ export default class App extends React.Component {
   setRides = rides => {
     this.setState({ rides: rides, ridesLoaded: true });
   };
+  componentWillUnmount() {
+    this.removeListener();
+  }
 
   setUser = user => {
     this.setState({ user: user, userLoaded: true });
@@ -40,6 +45,7 @@ export default class App extends React.Component {
         <div>
           <AppBar user={this.state.user} />
           <Switch>
+            <Route exact path="/" render={() => <Redirect to="/home" />} />
             <Route
               path="/login"
               render={() => (
@@ -61,6 +67,12 @@ export default class App extends React.Component {
                   ridesLoaded={this.state.ridesLoaded}
                 />
               )}
+            />
+            <PrivateRoute
+              path="/request-ride"
+              userLoaded={this.state.userLoaded}
+              user={this.state.user}
+              component={RequestRide}
             />
           </Switch>
         </div>
