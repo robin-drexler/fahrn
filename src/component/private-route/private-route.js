@@ -10,18 +10,20 @@ export default class extends React.Component {
 
     return (
       <Route
-        render={() =>
-          this.props.user ? (
-            React.createElement(this.props.component)
-          ) : (
+        render={() => {
+          if (this.props.user) {
+            return React.createElement(this.props.component);
+          }
+
+          return (
             <Redirect
               to={{
                 pathname: '/login',
                 state: { from: this.props.location },
               }}
             />
-          )
-        }
+          );
+        }}
       />
     );
   }
