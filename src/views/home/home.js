@@ -23,9 +23,8 @@ export default class HomeView extends React.Component {
           {this.props.rides.map(ride => (
             <ListItem button key={ride.id}>
               <ListItemText
-                primary={`${ride.start} to ${ride.destination} on ${
-                  ride.departure_time
-                }`}
+                primary={`${ride.start} to ${ride.destination}`}
+                secondary={`departure on ${ride.departure_time.toLocaleString()}`}
               />
             </ListItem>
           ))}
