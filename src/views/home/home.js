@@ -1,22 +1,24 @@
 import * as React from 'react';
-import { AppBar, Card, Toolbar, Typography } from 'material-ui';
+import { CircularProgress, List, ListItem, ListItemText } from 'material-ui';
 
 export default class HomeView extends React.Component {
   render() {
-    const { displayName } = window.firebase.auth().currentUser;
+    if (!this.props.ridesLoaded) {
+      return <CircularProgress />;
+    }
+
     return (
-      <div className="App">
-        <AppBar position="static" color="default">
-          <Toolbar>
-            <Typography type="title" color="inherit">
-              Fahrn
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Card>
-          <Typography>Welcome back, {displayName}!</Typography>
-        </Card>
-      </div>
+      <List>
+        {this.props.rides.map(ride => (
+          <ListItem key={ride.id}>
+            <ListItemText
+              primary={`${ride.start} to ${ride.destination} on ${
+                ride.departure_time
+              }`}
+            />
+          </ListItem>
+        ))}
+      </List>
     );
   }
 }

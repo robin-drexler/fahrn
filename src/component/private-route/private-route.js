@@ -12,6 +12,10 @@ export default class extends React.Component {
       <Route
         render={() => {
           if (this.props.user) {
+            if (this.props.render) {
+              return this.props.render();
+            }
+
             return React.createElement(this.props.component);
           }
 
