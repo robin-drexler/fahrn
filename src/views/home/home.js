@@ -33,6 +33,20 @@ export default class HomeView extends React.Component {
 }
 
 class RideListItem extends React.Component {
+  renderRightIcon = () => {
+    if (!this.props.ride.fulfilled) {
+      return null;
+    }
+
+    return (
+      <ListItemSecondaryAction>
+        <IconButton color="accent">
+          <Check />
+        </IconButton>
+      </ListItemSecondaryAction>
+    );
+  };
+
   render() {
     const { ride } = this.props;
     return (
@@ -41,11 +55,7 @@ class RideListItem extends React.Component {
           primary={`${ride.start} to ${ride.destination}`}
           secondary={`departure on ${ride.departure_time.toLocaleString()}`}
         />
-        <ListItemSecondaryAction>
-          <IconButton color="accent">
-            <Check />
-          </IconButton>
-        </ListItemSecondaryAction>
+        {this.renderRightIcon()}
       </ListItem>
     );
   }
