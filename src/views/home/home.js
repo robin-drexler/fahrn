@@ -38,6 +38,10 @@ class HomeView extends React.Component {
     this.refreshNotificationToken();
   }
 
+  gotoRide = ride => {
+    this.props.history.push(`/ride/${ride.id}`);
+  };
+
   render() {
     if (!this.props.ridesLoaded) {
       return (
@@ -54,7 +58,11 @@ class HomeView extends React.Component {
         <CardContent>
           <List>
             {this.props.rides.map(ride => (
-              <RideListItem key={ride.id} ride={ride} />
+              <RideListItem
+                key={ride.id}
+                ride={ride}
+                gotoRide={this.gotoRide}
+              />
             ))}
           </List>
         </CardContent>
@@ -79,9 +87,9 @@ class RideListItem extends React.Component {
   };
 
   render() {
-    const { ride } = this.props;
+    const { gotoRide, ride } = this.props;
     return (
-      <ListItem button>
+      <ListItem button onClick={() => gotoRide(ride)}>
         <ListItemText
           primary={`${ride.start} to ${ride.destination}`}
           secondary={`departure on ${ride.departure_time.toLocaleString()}`}
@@ -92,4 +100,4 @@ class RideListItem extends React.Component {
   }
 }
 
-export default withStyles(styles)(HomeView);
+export default withRouter(withStyles(styles)(HomeView));
