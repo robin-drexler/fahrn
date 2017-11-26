@@ -2,6 +2,7 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://fahrn-a876f.firebaseapp.com",
   "dependencies": {
     "material-ui": "^1.0.0-beta.21",
     "react": "^16.1.1",
@@ -11,6 +12,7 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
+    "deploy": "yarn build && firebase deploy",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
