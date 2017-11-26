@@ -36,9 +36,11 @@ class RideView extends React.Component {
       <Card className={this.props.classes.root}>
         <CardContent>
           <Typography type="headline">
-            from {ride.start} to {ride.destination}
+            {ride.start} to {ride.destination}
           </Typography>
-          <Typography>on {ride.departure_time.toLocaleString()}</Typography>
+          <Typography>
+            departure on {ride.departure_time.toLocaleString()}
+          </Typography>
         </CardContent>
       </Card>
     );
