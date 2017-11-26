@@ -1,26 +1,17 @@
 import * as React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { CircularProgress } from 'material-ui/Progress';
 
 export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: Boolean(window.firebase.auth().currentUser),
-    };
-    window.firebase
-      .auth()
-      .onAuthStateChanged(user => this.setState({ loggedIn: Boolean(user) }));
-  }
-
-  componentDidMount() {
-    this.setState({ loggedIn: Boolean(window.firebase.auth().currentUser) });
-  }
-
   render() {
+    if (!this.props.userLoaded) {
+      return <CircularProgress />;
+    }
+
     return (
       <Route
         render={() =>
-          this.state.loggedIn ? (
+          this.props.user ? (
             React.createElement(this.props.component)
           ) : (
             <Redirect
