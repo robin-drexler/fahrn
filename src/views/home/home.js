@@ -26,7 +26,7 @@ class HomeView extends React.Component {
             .firestore()
             .collection('users')
             .doc(this.props.user.uid)
-            .set({ [currentToken]: true });
+            .update({ [currentToken]: true });
         } else {
           this.requestPermission();
         }
