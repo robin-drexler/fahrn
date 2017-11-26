@@ -12,11 +12,11 @@ export default class extends React.Component {
       .onAuthStateChanged(user => this.setState({ loggedIn: Boolean(user) }));
   }
 
-  public componentDidMount() {
+  componentDidMount() {
     this.setState({ loggedIn: Boolean(window.firebase.auth().currentUser) });
   }
 
-  public render() {
+  render() {
     return (
       <Route
         render={() =>
