@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {
+  Button,
   Card,
+  CardActions,
   CardContent,
   CircularProgress,
   Typography,
@@ -25,6 +27,21 @@ class RideView extends React.Component {
       </Typography>
     );
   };
+
+  renderActions = () => {
+    if (this.props.ride.driver_id) {
+      return null;
+    }
+
+    return (
+      <CardActions>
+        <Button raised color="primary">
+          I will drive
+        </Button>
+      </CardActions>
+    );
+  };
+
   render() {
     if (this.props.loading) {
       return (
@@ -58,6 +75,7 @@ class RideView extends React.Component {
             departure on {ride.departure_time.toLocaleString()}
           </Typography>
           {this.renderPeople()}
+          {this.renderActions()}
         </CardContent>
       </Card>
     );
