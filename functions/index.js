@@ -49,6 +49,7 @@ exports.storeUserMeta = functions.auth.user().onCreate(evnt => {
   const email = user.email;
   const uid = user.uid;
   const display_name = user.displayName;
+  console.log(`Add user ${displayy_name}.`);
   return admin
     .firestore()
     .collection('users')
