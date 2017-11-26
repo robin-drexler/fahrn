@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { AppBar, Toolbar, Typography } from 'material-ui';
 import PrivateRoute from '../component/private-route/private-route';
 import Home from '../views/home/home';
 import Login from '../views/login/login';
+import AppBar from '../component/AppBar';
 import { loadAndUpdateRides } from '../api';
 
 export default class App extends React.Component {
@@ -38,13 +38,7 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <AppBar position="static" color="default">
-            <Toolbar>
-              <Typography type="title" color="inherit">
-                Fahrn
-              </Typography>
-            </Toolbar>
-          </AppBar>
+          <AppBar user={this.state.user} />
           <Switch>
             <Route
               path="/login"
