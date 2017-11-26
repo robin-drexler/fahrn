@@ -9,13 +9,14 @@ import {
   InputLabel,
   Input,
 } from 'material-ui';
+import LinkButton from '../../component/link-button/link-button';
 
 const styles = () => ({
   paper: {
     padding: '16px',
   },
   headline: {
-    marginBottom: '24px',
+    marginBottom: '16px',
   },
   field: {
     width: '100%',
@@ -67,11 +68,17 @@ class RequestRide extends React.Component {
               <Typography className={this.props.classes.headline}>
                 Great, your request was stored!
               </Typography>
-              <Link to="/home">Back</Link>
+              <LinkButton raised href="/home">
+                Back
+              </LinkButton>
             </div>
           ) : (
             <div>
-              <Typography className={this.props.classes.headline}>
+              <Typography
+                type="title"
+                color="inherit"
+                className={this.props.classes.headline}
+              >
                 Request a ride
               </Typography>
               <form onSubmit={this.submit} method="post">

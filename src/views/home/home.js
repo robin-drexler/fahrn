@@ -12,6 +12,7 @@ import {
 } from 'material-ui';
 import { Check } from 'material-ui-icons';
 import { withRouter } from 'react-router-dom';
+import LinkButton from '../../component/link-button/link-button';
 import styles from '../../styles';
 
 class HomeView extends React.Component {
@@ -58,19 +59,28 @@ class HomeView extends React.Component {
     }
 
     return (
-      <Card className={this.props.classes.root}>
-        <CardContent>
-          <List>
-            {this.props.rides.map(ride => (
-              <RideListItem
-                key={ride.id}
-                ride={ride}
-                gotoRide={this.gotoRide}
-              />
-            ))}
-          </List>
-        </CardContent>
-      </Card>
+      <div>
+        <LinkButton
+          raised
+          href="/request-ride"
+          className={this.props.classes.requestRideButton}
+        >
+          Request ride
+        </LinkButton>
+        <Card className={this.props.classes.root}>
+          <CardContent>
+            <List>
+              {this.props.rides.map(ride => (
+                <RideListItem
+                  key={ride.id}
+                  ride={ride}
+                  gotoRide={this.gotoRide}
+                />
+              ))}
+            </List>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 }
